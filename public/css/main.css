@@ -1,0 +1,23 @@
+.img-logo { margin: 20px 0px; }
+.text-small { font-size: 12px; }
+.background-cookies { background-color: #000;}
+.margin-top-10 { margin-top: 10px; }
+.facebook-like { width: 121px; height: 121px; float: right; }
+
+/**
+* Rewrite bootstrap
+*/
+.breadcrumb { border-top: 2px solid #000; }
+
+/* Prevent both placeholder and the real image showing at the same time hide the placeholder */
+.lazy { display: none; }
+
+/**
+*   Widget Sidebar
+*/
+.widget-sidebar { border-top: 2px solid #000; padding: 0px 10px; background-color: #f5f5f5; }
+
+#footer, .background-cookies { background-color: #000; }
+    #footer p, .background-cookies p { color: #ddd; }
+    #footer a, .background-cookies a { color: #ddd; text-decoration: underline; }
+    #footer a:hover, .background-cookies a:hover { color: #ddd; }

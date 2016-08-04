@@ -1,16 +1,17 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
+//Rutas autentificación
+Route::auth();
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Rutas estaticas
+Route::get('/', ['as' => 'portada', 'uses' => 'HomeController@index']);
+Route::get('/historia.html', ['as' => 'historia', 'uses' => 'HomeController@historia']);
+Route::get('/webcam.html', ['as' => 'webcam', 'uses' => 'HomeController@webcam']);
+
+//Rutas contacto
+Route::get('/contacto.html', ['as' => 'contacto', 'uses' => 'HomeController@contacto']);
+Route::get('/legal.html', ['as' => 'legal', 'uses' => 'HomeController@legal']);
+Route::get('/cookies.html', ['as' => 'cookies', 'uses' => 'HomeController@cookies']);
+
+//Rutas Tiempos
+Route::get('/tiempos/lista.html', ['as' => 'tiempos', 'uses' => 'TiempoController@lista']);
