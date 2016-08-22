@@ -5,9 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ $meta_title }}</title>
-    <meta name="description" content="{{ $meta_description }}" />
-    <meta name="robots" content="{{ $meta_robots }}" />
+    @yield('metadata')
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset("css/bootstrap.min.css") }}" >
@@ -23,12 +21,6 @@
     <link rel="apple-touch-icon" sizes="144x144" href="{{ asset("img/ico/apple-touch-icon-144x144.png") }}" />
     <link rel="apple-touch-icon" sizes="152x152" href="{{ asset("img/ico/apple-touch-icon-152x152.png") }}" />
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset("img/ico/apple-touch-icon-180x180.png") }}" />
-
-    <meta property="og:url" content="{{ url()->current() }}" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="{{ $meta_title }}" />
-    <meta property="og:description" content="{{ $meta_description }}" />
-    <meta property="og:image" content="{{ asset("img/cn-logo.png") }}" />
 
     <!-- Google Analytic Script -->
     <script>
@@ -57,13 +49,14 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-sm-12">
-                    @include('common/breadcrumbs')
+                    @yield('breadcrumbs')
+                    @include('common/messages')
                     @yield('content')
                 <p class="clearfix">&nbsp;</p>
             </div>
             <div class="col-md-4 col-sm-12">
                 <aside>
-                    @yield('sidebar')
+                    @include('common/sidebar')
                 </aside>
             </div>
         </div>
@@ -80,6 +73,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
     <script src="{{ asset("js/bootstrap.min.js") }}"></script>
     <script src="{{ asset("js/jquery.lazyload.min.js") }}" ></script>
+    <script src="{{ asset("js/holder.min.js") }}" ></script>
+
+    <script>
+        $("img.lazy").lazyload({
+            threshold : 200
+        });
+    </script>
 
 </body>
 </html>

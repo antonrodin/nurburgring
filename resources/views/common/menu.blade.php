@@ -3,23 +3,27 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ route("portada") }}">Portada</a></li>
-                    <li><a href="{{ route("tiempos") }}">Tiempos del circuito</a></li>
+                    <li><a href="{{ url("circuit") }}">Circuitos</a></li>
+                    <li><a href="{{ url("record") }}">Records</a></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                <?php if (Auth::check()) { ?>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Información <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user"></i>&nbsp; {{ Auth::user()->name }} <span class="caret"></span>
+                        </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ route("historia") }}">Historia</a></li>
-                            <li><a href="{{ route("webcam") }}">Webcam Nürburgring</a></li>
+                            <li><a href="{{ url("#") }}"><i class="fa fa-gear"></i>&nbsp; Cambiar contraseña</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{ url("logout") }}"><i class="fa fa-power-off"></i>&nbsp; Cerrar sessión</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{ route("contacto") }}">Contacto</a></li>
+                <?php } else { ?>
+                    <li><a href="{{ url("login") }}"><i class="fa fa-user"></i>&nbsp; Iniciar sessión</a></li>
+                    <li><a href="{{ url("register") }}"><i class="fa fa-user-plus"></i>&nbsp; Registrarse</a></li>
+                <?php } ?>
                 </ul>
-                <form class="navbar-form navbar-right" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Buscar">
-                    </div>
-                    <button type="submit" class="btn btn-default">Buscar</button>
-                </form>
 
             </div>
         </div>

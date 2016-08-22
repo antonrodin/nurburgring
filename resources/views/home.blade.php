@@ -1,15 +1,29 @@
 @extends('layouts.app')
 
-@section('sidebar')
-    <div id="fb-root"></div>
-    <script>(function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.5";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script>
-    <div class="fb-page" data-href="https://www.facebook.com/circuitodenurburgring" data-tabs="timeline" data-width="600" data-height="400" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/circuitodenurburgring"><a href="https://www.facebook.com/circuitodenurburgring">Facebook</a></blockquote></div></div>
+@section('metadata')
+    <title>Circuito de Nürburgring, tiempos, pruebas de coches en el circuito de Nordscheleife</title>
+    <meta name="description" content="Website dedicado al circuito de Nürburgring aquí puedes encontrar información del circuito de Nürburgring
+    Nordscheleife, tiempos, videos del circuito, pruebas de coches en el circuito, longitud del circuito de Nürburgring, Formula 1 en
+    Nürburgring y mucho mas!" />
+    <meta name="robots" content="all" />
+
+    <meta property="og:url" content="{{ url()->current() }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Circuito de Nürburgring, tiempos, pruebas de coches en el circuito de Nordscheleife" />
+    <meta property="og:description" content="Website dedicado al circuito de Nürburgring aquí puedes encontrar información del circuito de Nürburgring Nordscheleife,
+    tiempos, videos del circuito, pruebas de coches en el
+    circuito, longitud del circuito de Nürburgring, Formula 1 en Nürburgring y mucho mas!" />
+    <meta property="og:image" content="{{ asset("img/cn-logo.png") }}" />
+@endsection
+
+@section('breadcrumbs')
+    <ol class="breadcrumb">
+        <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a itemprop="url" href="{{ route('portada') }}">
+                <span itemprop="title">Portada</span>
+            </a>
+        </li>
+    </ol>
 @endsection
 
 @section('content')

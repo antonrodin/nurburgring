@@ -12,7 +12,7 @@
         <p>
             Puedes consultar aquí nuestro <a rel="nofollow" href="{{ route("legal") }}">aviso legal</a>,
             así como <a rel="nofollow" href="{{ route("cookies") }}">información sobre cookies</a> obligatoria en la Union Europea. Si tienes cualquier duda o sugerencia
-            te rogamos que nos lo hagas saber a través del formulario de contacto.
+            te rogamos que nos lo hagas saber a través de <a href="{{ route("contacto") }}">la sección de contacto</a>.
         </p>
     </div>
 </div>
