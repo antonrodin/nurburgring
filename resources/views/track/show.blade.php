@@ -74,10 +74,68 @@
                     <td class="text-left">{{ $circuit->address }}</td>
                 </tr>
             @endif
-            @if($circuit->city)
+            @if($circuit->url)
                 <tr>
                     <td class="text-right"><strong>Url: </strong></td>
                     <td class="text-left"><a href="{{ $circuit->url }}" rel="nofollow">{{ $circuit->url }}</a></td>
+                </tr>
+            @endif
+            @if($circuit->facebook)
+                <tr>
+                    <td class="text-right"><strong>Facebook: </strong></td>
+                    <td class="text-left"><a href="{{ $circuit->facebook }}" rel="nofollow">{{ $circuit->facebook }}</a></td>
+                </tr>
+            @endif
+            @if($circuit->email)
+                <tr>
+                    <td class="text-right"><strong>Email: </strong></td>
+                    <td class="text-left"><a href="mailto:{{ $circuit->email }}" rel="nofollow">{{ $circuit->email }}</a></td>
+                </tr>
+            @endif
+    </table>
+
+    <h3>Datos técnicos de la trazada y el circuito</h3>
+    <table class="table table-responsive table-striped">
+            @if($circuit->length)
+                <tr>
+                    <td class="text-right"><strong>Longitud: </strong></td>
+                    <td class="text-left">{{ $circuit->length }}</td>
+                </tr>
+            @endif
+            @if($circuit->straight)
+                <tr>
+                    <td class="text-right"><strong>Longitud de la recta máxima: </strong></td>
+                    <td class="text-left">{{ $circuit->straight }}</td>
+                </tr>
+            @endif
+            @if($circuit->curves)
+                <tr>
+                    <td class="text-right"><strong>Trazada: </strong></td>
+                    <td class="text-left">{{ $circuit->curves }}</td>
+                </tr>
+            @endif
+            @if($circuit->width)
+                <tr>
+                    <td class="text-right"><strong>Anchura máxima: </strong></td>
+                    <td class="text-left">{{ $circuit->width }}</td>
+                </tr>
+            @endif
+            @if($circuit->slope)
+                <tr>
+                    <td class="text-right"><strong>Desnivel o pendiente máxima: </strong></td>
+                    <td class="text-left">{{ $circuit->slope }}</td>
+                </tr>
+            @endif
+            @if($circuit->capacity)
+                <tr>
+                    <td class="text-right"><strong>Capacidad de las gradas: </strong></td>
+                    <td class="text-left">{{ $circuit->capacity }}</td>
+                </tr>
+            @endif
+            @if($circuit->services)
+                <tr>
+                    <td class="text-right"><strong>Servicios: </strong></td>
+                    <td class="text-left">{{ $circuit->services }}</td>
                 </tr>
             @endif
     </table>

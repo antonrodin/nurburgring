@@ -44,11 +44,11 @@
         La longitud del circuito de Nurburgring son 20.6 kilometros.
         Aunque no siempre era esa la longitud, segun pasaban los años se ha modificado para adaptarse a
         nuevos retos y nuevas competiciones, podeis echar un ojo a la
-        <a href="{{ route("historia") }}" title="historia del circuito"><b>historia del circuito</b></a>
+        <b>historia del circuito</b>
         para seguir sus modificaciones a lo largo de los años.
         Tiene 33 giros a la izquierda y 40 a la derecha. Algunas de las curvas son ciegas,
         otras tienen peralte como de un circuito de velocidad, continuas subidas y bajadas.
-        Esto unido a unas condiciones meteorologicas adversas, una <a href="{{ route("historia") }}" title="historia del circuito"><b>historia</b></a> de unos 80 años
+        Esto unido a unas condiciones meteorologicas adversas, una <b>historia</b>de unos 80 años
         y la posibilidad de disfrutarlo por todo el mundo, pagando una entrada al mismo...
         hacen que a este circuito venga gente de todo el mundo con sus coches para disfrutar de la velocidad y
         las emociones fuertes.

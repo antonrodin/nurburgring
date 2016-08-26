@@ -5,19 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Circuit;
+use App\Track;
 use Auth;
 
-class CircuitController extends Controller
+class TrackController extends Controller
 {
 
-    protected $_circuit;
+    protected $_track;
     private $_data = array();
 
-    public function __construct(Circuit $circuit)
+    public function __construct(Track $track)
     {
         $this->middleware('auth', ['except' => ['index', 'show']]);
-        $this->_circuit = $circuit;
+        $this->_track = $track;
     }
 
     /**
@@ -27,9 +27,9 @@ class CircuitController extends Controller
      */
     public function index()
     {
-        $this->_data['circuits'] = $this->_circuit->all();
+        $this->_data['tracks'] = $this->_track->all();
 
-        return view('circuit.index', $this->_data);
+        return view('track.index', $this->_data);
     }
 
     /**
@@ -39,7 +39,7 @@ class CircuitController extends Controller
      */
     public function create()
     {
-        return view('circuit.create', $this->_data);
+        return view('track.create', $this->_data);
     }
 
     /**
@@ -89,7 +89,7 @@ class CircuitController extends Controller
             'services' => $request->services
         ]);
 
-        return redirect('circuit');
+        return redirect('tracks');
     }
 
     /**
@@ -100,8 +100,8 @@ class CircuitController extends Controller
      */
     public function show($slug)
     {
-        $this->_data['circuit'] = $this->_circuit->where('slug', $slug)->first();
-        return view('circuit.show', $this->_data);
+        $this->_data['track'] = $this->_track->where('slug', $slug)->first();
+        return view('track.show', $this->_data);
     }
 
     /**
@@ -110,10 +110,10 @@ class CircuitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Circuit $circuit)
+    public function edit(track $track)
     {
-        $this->_data['circuit'] = $circuit;
-        return view("circuit.edit", $this->_data);
+        $this->_data['track'] = $track;
+        return view("track.edit", $this->_data);
     }
 
     /**
@@ -123,7 +123,7 @@ class CircuitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Circuit $circuit)
+    public function update(Request $request, Track $circuit)
     {
 
         $this->validate($request, [
@@ -148,7 +148,7 @@ class CircuitController extends Controller
         $circuit->user_id = Auth::id();
         $circuit->save();
 
-        return redirect('circuit');
+        return redirect('tracks');
     }
 
     /**

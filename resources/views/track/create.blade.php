@@ -10,17 +10,17 @@
     <ol class="breadcrumb">
         <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
             <a itemprop="url" href="{{ route('portada') }}">
-                <span itemprop="title">Portada</span>
+                <span itemprop="title">{{  trans('menu.Home') }}</span>
             </a>
         </li>
         <li>
-            <a itemprop="url" href="{{ url("circuit") }}">
-                <span itemprop="title">Circuitos</span>
+            <a itemprop="url" href="{{ route("tracks") }}">
+                <span itemprop="title">{{ trans('track.List of racing tracks') }}</span>
             </a>
         </li>
         <li>
             <a itemprop="url" href="{{ url()->current() }}">
-                <span itemprop="title">Añadir</span>
+                <span itemprop="title">{{ trans('menu.Add') }}</span>
             </a>
         </li>
     </ol>
@@ -30,8 +30,8 @@
     <h1>Añadir un nuevo circuito</h1>
 
     <ul class="nav nav-tabs">
-        <li role="presentation"><a href="{{ url('circuit') }}">Lista</a></li>
-        <li role="presentation" class="active"><a href="{{ url('circuit/create') }}">Añadir un circuito</a></li>
+        <li role="presentation"><a href="{{ route('tracks') }}">{{ trans('track.List of racing tracks') }}</a></li>
+        <li role="presentation" class="active"><a href="{{ route('track.create') }}">{{ trans('menu.Add') }}</a></li>
     </ul>
     <p>&nbsp;</p>
 

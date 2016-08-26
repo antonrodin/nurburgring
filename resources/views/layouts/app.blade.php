@@ -1,5 +1,6 @@
+<?php $locale = App::getLocale() ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ $locale }}">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -37,6 +38,16 @@
 
 </head>
 <body>
+
+    @if(App::environment() == 'development')
+    <div class="container">
+        <pre>
+            Locale: {{ App::getLocale() }}
+            Last route: {{ Session::get('last_route') }}
+            Forever Locale: {{ Session::get('forever_locale') }}
+        </pre>
+    </div>
+    @endif
 
     <div class="container">
         @include('common/header')

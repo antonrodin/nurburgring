@@ -1,30 +1,52 @@
 <?php
 
-//Rutas autentificación
+$languages = array('en', 'ru', 'es');
+$locale = Request::segment(1);
+if (in_array($locale, $languages)) {
+    App::setLocale($locale);
+} else {
+    $locale = null;
+}
+
+Route::group(array('prefix' => $locale, 'middleware' => ['last', 'locale']), function() {
+
+    //Home
+    Route::get('/', ['as' => 'portada', 'uses' => 'HomeController@index']);
+    Route::get('/contacto', ['as' => 'contacto', 'uses' => 'ContactController@contacto']);
+    Route::get('/legal', ['as' => 'legal', 'uses' => 'ContactController@legal']);
+    Route::get('/cookies', ['as' => 'cookies', 'uses' => 'ContactController@cookies']);
+
+    //Circuit
+    Route::get('tracks', ['as' => 'tracks', 'uses' => 'TrackController@index']);
+    Route::get('track/create', ['as' => 'track.create', 'uses' => 'TrackController@create']);
+
+});
+
+//Change Language and locale
+Route::get('change_locale/{locale}', array('as' => 'change_locale', function($locale) {
+
+    //Set locale
+    App::setLocale($locale);
+    Session::put('forever_locale', $locale);
+
+    //Get last route from session
+    //The App set last route in StoreLastRoute Middleware
+    $route = Session::get('last_route');
+
+    //Convert route to array
+    $array_route = explode("/", $route);
+    //Change first segment of route to "es", "en" or whatever
+    $array_route[0] = $locale;
+    //Convert array to string
+    $redirect_route = implode("/", $array_route);
+    //Redirect to new route
+    return Redirect::to($redirect_route);
+}));
+
+//Auth Routes without prefix
 Route::auth();
 
-//Rutas estaticas
-Route::get('/', ['as' => 'portada', 'uses' => 'HomeController@index']);
-Route::get('/historia.html', ['as' => 'historia', 'uses' => 'HomeController@historia']);
-Route::get('/webcam.html', ['as' => 'webcam', 'uses' => 'HomeController@webcam']);
-
-//Rutas contacto
-Route::get('/contacto.html', ['as' => 'contacto', 'uses' => 'HomeController@contacto']);
-Route::get('/legal.html', ['as' => 'legal', 'uses' => 'HomeController@legal']);
-Route::get('/cookies.html', ['as' => 'cookies', 'uses' => 'HomeController@cookies']);
-
-//Rutas Tiempos
-Route::get('/tiempos/lista.html', ['as' => 'tiempos', 'uses' => 'RecordController@list']);
-
-
-//Resource routes
-Route::resource('circuit', 'CircuitController');
-Route::resource('record', 'RecordController');
-Route::resource('car', 'CarController');
-Route::resource('driver', 'DriverController');
-Route::resource('image', 'ImageController');
-
-//Borrar Luego
+//Temporal Routes
 //Scripts Controller
 Route::get('cscript', 'ScriptController@cscript');
 Route::get('dscript', 'ScriptController@dscript');

@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('metadata')
-    <title>Lista de circuitos</title>
-    <meta name="description" content="Lista de circuitos de competición" />
+    <title>{{ trans('track.List of racing tracks') }}</title>
+    <meta name="description" content="{{ trans('track.List of racing tracks') }}" />
     <meta name="robots" content="all" />
 
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Lista de circuitos" />
-    <meta property="og:description" content="Lista de circuitos" />
+    <meta property="og:title" content="{{ trans('track.List of racing tracks') }}" />
+    <meta property="og:description" content="{{ trans('track.List of racing tracks') }}" />
     <meta property="og:image" content="{{ asset("img/cn-logo.png") }}" />
 @endsection
 
@@ -16,40 +16,40 @@
     <ol class="breadcrumb">
         <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
             <a itemprop="url" href="{{ route('portada') }}">
-                <span itemprop="title">Portada</span>
+                <span itemprop="title">{{ trans('menu.Home') }}</span>
             </a>
         </li>
         <li>
             <a itemprop="url" href="{{ url()->current() }}">
-                <span itemprop="title">Lista de circuitos</span>
+                <span itemprop="title">{{ trans('track.List of racing tracks') }}</span>
             </a>
         </li>
     </ol>
 @endsection
 
 @section('content')
-    <h1>Lista de circuitos</h1>
+    <h1>{{ trans('track.List of racing tracks') }}</h1>
 
     <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a href="{{ url('circuit') }}">Lista</a></li>
-        <li role="presentation"><a href="{{ url('circuit/create') }}">Añadir un circuito</a></li>
+        <li role="presentation" class="active"><a href="{{ route("tracks") }}">{{ trans('track.List') }}</a></li>
+        <li role="presentation"><a href="{{ route("track.create") }}">{{ trans('menu.Add') }}</a></li>
     </ul>
     <p>&nbsp;</p>
     <table class="table table-responsive table-striped">
-        @foreach($circuits as $circuit)
+        @foreach($tracks as $track)
             <tr>
                 <td>
-                    <a class="img-thumbnail" href="{{ url("circuit/{$circuit->slug}") }}">
+                    <a class="img-thumbnail" href="{{ url("{$locale}/track/{$track->slug}") }}">
                         <img width="200" height="150" src="holder.js/200x150" data-original="holder.js/200x150">
                     </a>
                 </td>
                 <td>
-                    <a href="{{ url("circuit/{$circuit->slug}") }}"><h2>{{ $circuit->name }}</h2></a>
+                    <a href="{{ url("{$locale}/track/{$track->slug}") }}"><h2>{{ $track->name }}</h2></a>
                     <p>
-                        {{ strip_tags(str_limit($circuit->description, 150)) }}
+                        {{ strip_tags(str_limit($track->description, 150)) }}
                     </p>
                     <a class="btn btn-sm btn-default" href="#"><i class="fa fa-tag"></i> Lista de Records</a>
-                    <a class="btn btn-sm btn-warning" href="{{ url("circuit/{$circuit->id}/edit") }}"><i class="fa fa-edit"></i> Edit</a>
+                    <a class="btn btn-sm btn-warning" href="{{ url("track/{$track->id}/edit") }}"><i class="fa fa-edit"></i> Edit</a>
                 </td>
             </tr>
         @endforeach
