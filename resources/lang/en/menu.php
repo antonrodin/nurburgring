@@ -36,5 +36,13 @@ return [
     'Update' => 'Update',
     'Insert' => 'Insert',
     'List' => 'List',
+    'Recommended fields' => 'Recommended fields:',
+    'Email' => 'Email',
+    'Name' => 'Name',
+    'Description' => 'Description',
+    'City' => 'City',
+    'Country' => 'Country',
+    'Address' => 'Address',
+    'Track' => 'Track',
     
 ];

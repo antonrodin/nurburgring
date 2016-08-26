@@ -10,9 +10,9 @@ class User extends Authenticatable
     protected $fillable = [ 'name', 'email', 'password' ];
     protected $hidden = ['password', 'remember_token' ];
 
-    public function circuits()
+    public function tracks()
     {
-        return $this->hasMany('App\Circuit');
+        return $this->hasMany('App\Track');
     }
 
 }

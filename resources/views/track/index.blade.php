@@ -31,7 +31,7 @@
     <h1>{{ trans('track.List of racing tracks') }}</h1>
 
     <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a href="{{ route("tracks") }}">{{ trans('track.List') }}</a></li>
+        <li role="presentation" class="active"><a href="{{ route("tracks") }}">{{ trans('menu.List') }}</a></li>
         <li role="presentation"><a href="{{ route("track.create") }}">{{ trans('menu.Add') }}</a></li>
     </ul>
     <p>&nbsp;</p>
@@ -39,17 +39,22 @@
         @foreach($tracks as $track)
             <tr>
                 <td>
-                    <a class="img-thumbnail" href="{{ url("{$locale}/track/{$track->slug}") }}">
+                    <a class="img-thumbnail" href="#">
                         <img width="200" height="150" src="holder.js/200x150" data-original="holder.js/200x150">
                     </a>
                 </td>
                 <td>
-                    <a href="{{ url("{$locale}/track/{$track->slug}") }}"><h2>{{ $track->name }}</h2></a>
+                    <a href="#") }}"><h2>{{ $track->name }}</h2></a>
+                    <p>
+                        {{ $track->city->name }} (<strong>{{ $track->country->name }})</strong>,
+                        {{ $track->address }}<br>
+                        {{ trans('track.Length') }}: <strong>{{ $track->length }}</strong>
+                    </p>
                     <p>
                         {{ strip_tags(str_limit($track->description, 150)) }}
                     </p>
                     <a class="btn btn-sm btn-default" href="#"><i class="fa fa-tag"></i> Lista de Records</a>
-                    <a class="btn btn-sm btn-warning" href="{{ url("track/{$track->id}/edit") }}"><i class="fa fa-edit"></i> Edit</a>
+                    <a class="btn btn-sm btn-warning" href="{{ route("track.edit", ['id' => $track->id]) }}"><i class="fa fa-edit"></i> Edit</a>
                 </td>
             </tr>
         @endforeach

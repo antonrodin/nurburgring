@@ -19,6 +19,8 @@ Route::group(array('prefix' => $locale, 'middleware' => ['last', 'locale']), fun
     //Circuit
     Route::get('tracks', ['as' => 'tracks', 'uses' => 'TrackController@index']);
     Route::get('track/create', ['as' => 'track.create', 'uses' => 'TrackController@create']);
+    Route::post('track', ['as' =>'track', 'uses' => 'TrackController@store']);
+    Route::get('track/{id}/edit', ['as' => 'track.edit', 'uses' => 'TrackController@edit']);
 
 });
 

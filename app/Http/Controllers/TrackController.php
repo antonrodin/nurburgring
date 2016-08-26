@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\App;
 use App\Http\Requests;
 use App\Track;
+use App\Country;
+use App\City;
 use Auth;
 
 class TrackController extends Controller
@@ -39,6 +42,7 @@ class TrackController extends Controller
      */
     public function create()
     {
+        $this->_data['countries'] = Country::all();
         return view('track.create', $this->_data);
     }
 
@@ -55,41 +59,48 @@ class TrackController extends Controller
             'name'      => 'required|min:5|max:255',
             'address'   => 'required|min:5|max:255',
             'city'      => 'required|min:2|max:255',
-            'country'   => 'required|min:2|max:255',
-            'description' => 'required|min:160',
+            'country_id'   => 'required|numeric',
+            'description' => 'min:160',
             'email'     => 'email|min:3|max:255',
             'url'       => 'url|min:2|max:255',
             'facebook'  => 'url|min:2|max:255',
-            'length'    => 'min:2|max:255',
-            'straight'  => 'min:2|max:255',
-            'curves'    => 'min:2|max:255',
-            'width'     => 'min:2|max:255',
-            'slope'     => 'min:2|max:255',
-            'capacity'  => 'min:2|max:255',
-            'services'  => 'min:2|max:255',
+            'length'    => 'numeric',
+            'straight'  => 'numeric',
+            'width'     => 'numeric',
+            'slope'     => 'numeric',
+            'capacity'  => 'numeric',
         ]);
 
-        $this->_circuit->create([
+        //Add new City
+        $city = City::where('name', $request->city)->where('country_id', $request->country_id)->first();
+        if (!$city) {
+            $city = City::create([
+                'name' => $request->city,
+                'country_id' => $request->country_id
+            ]);
+        }
+
+        //Add new racing track
+        $locale = App::getLocale();
+        $this->_track->create([
             'user_id' => Auth::id(),
             'name' => $request->name,
             'slug' => str_slug($request->name),
-            'country' => $request->country,
-            'city' => $request->city,
+            'city_id' => $city->id,
+            'country_id' => $request->country_id,
             'address' => $request->address,
-            'description' => $request->description,
+            "{$locale}_description" => $request->description,
             'url' => $request->url,
             'facebook' => $request->facebook,
             'email' => $request->email,
             'length' => $request->length,
             'straight' => $request->straight,
-            'curves' => $request->curves,
             'width' => $request->width,
             'slope' => $request->slope,
-            'capacity' => $request->capacity,
-            'services' => $request->services
+            'capacity' => $request->capacity
         ]);
 
-        return redirect('tracks');
+        return redirect()->route('tracks');
     }
 
     /**
@@ -110,9 +121,9 @@ class TrackController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(track $track)
+    public function edit($id)
     {
-        $this->_data['track'] = $track;
+        $this->_data['track'] = Track::find($id);
         return view("track.edit", $this->_data);
     }
 
@@ -123,7 +134,7 @@ class TrackController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Track $circuit)
+    public function update(Request $request, Track $track)
     {
 
         $this->validate($request, [
@@ -144,11 +155,11 @@ class TrackController extends Controller
             'services'  => 'min:2|max:255',
         ]);
 
-        $circuit->update($request->all());
-        $circuit->user_id = Auth::id();
-        $circuit->save();
+        $track->update($request->all());
+        $track->user_id = Auth::id();
+        $track->save();
 
-        return redirect('tracks');
+        return redirect()->route('tracks');
     }
 
     /**

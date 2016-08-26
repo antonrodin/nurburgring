@@ -32,17 +32,12 @@ class CreateTracksTable extends Migration
             $table->float('lng');
             $table->integer('length');
             $table->integer('straight');
-            $table->integer('left_curves');
-            $table->integer('right_curves');
             $table->integer('width');
             $table->integer('slope');
             $table->integer('capacity');
 
-            $table->string('es_services');
             $table->longtext('es_description');
-            $table->string('en_services');
             $table->longtext('en_description');
-            $table->string('ru_services');
             $table->longtext('ru_description');
 
             $table->timestamps();
