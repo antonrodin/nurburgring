@@ -15,7 +15,7 @@
 @section('breadcrumbs')
     <ol class="breadcrumb">
         <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-            <a itemprop="url" href="{{ route('portada') }}">
+            <a itemprop="url" href="{{ route('home') }}">
                 <span itemprop="title">{{ trans('menu.Home') }}</span>
             </a>
         </li>
@@ -39,12 +39,12 @@
         @foreach($tracks as $track)
             <tr>
                 <td>
-                    <a class="img-thumbnail" href="#">
+                    <a href="{{ route('track.show', ['slug' => $track->slug]) }}" class="img-thumbnail" href="#">
                         <img width="200" height="150" src="holder.js/200x150" data-original="holder.js/200x150">
                     </a>
                 </td>
                 <td>
-                    <a href="#") }}"><h2>{{ $track->name }}</h2></a>
+                    <a href="{{ route('track.show', ['slug' => $track->slug]) }}"><h2>{{ $track->name }}</h2></a>
                     <p>
                         {{ $track->city->name }} (<strong>{{ $track->country->name }})</strong>,
                         {{ $track->address }}<br>

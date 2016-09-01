@@ -39,12 +39,24 @@
 </head>
 <body>
 
+    <?php if (!session()->get('acepto_cookies')) { ?>
+    <div id="pts-cookies-esconder" class='container-fluid background-cookies'>
+        <div id="pts-cookies" class="container">
+            <p>
+                {!! trans('menu.Cookies Message') !!}
+                <button id="esconder" type="button" class="btn btn-success btn-xs pull-right">{{ trans('menu.Accept') }}</button>
+            </p>
+        </div>
+    </div>
+    <?php } ?>
+
     @if(App::environment() == 'development')
     <div class="container">
         <pre>
             Locale: {{ App::getLocale() }}
-            Last route: {{ Session::get('last_route') }}
-            Forever Locale: {{ Session::get('forever_locale') }}
+            Last route: {{ session()->get('last_route') }}
+            Forever Locale: {{ session()->get('forever_locale') }}
+            Cookies: {{ session()->get('acepto_cookies') }}
         </pre>
     </div>
     @endif
@@ -89,6 +101,9 @@
     <script>
         $("img.lazy").lazyload({
             threshold : 200
+        });
+        $( "#esconder" ).click(function() {
+            $("#pts-cookies-esconder").hide();
         });
     </script>
 

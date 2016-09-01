@@ -69,6 +69,7 @@ class TrackController extends Controller
             'width'     => 'numeric',
             'slope'     => 'numeric',
             'capacity'  => 'numeric',
+            'turns'     => 'numeric',
         ]);
 
         //Add new City
@@ -121,9 +122,10 @@ class TrackController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Track $track)
     {
-        $this->_data['track'] = Track::find($id);
+        $this->_data['countries'] = Country::all();
+        $this->_data['track'] = $track;
         return view("track.edit", $this->_data);
     }
 
@@ -136,24 +138,6 @@ class TrackController extends Controller
      */
     public function update(Request $request, Track $track)
     {
-
-        $this->validate($request, [
-            'name'      => 'required|min:5|max:255',
-            'address'   => 'required|min:5|max:255',
-            'city'      => 'required|min:2|max:255',
-            'country'   => 'required|min:2|max:255',
-            'description' => 'required|min:160',
-            'email'     => 'email|min:3|max:255',
-            'url'       => 'url|min:2|max:255',
-            'facebook'  => 'url|min:2|max:255',
-            'length'    => 'min:2|max:255',
-            'straight'  => 'min:2|max:255',
-            'curves'    => 'min:2|max:255',
-            'width'     => 'min:2|max:255',
-            'slope'     => 'min:2|max:255',
-            'capacity'  => 'min:2|max:255',
-            'services'  => 'min:2|max:255',
-        ]);
 
         $track->update($request->all());
         $track->user_id = Auth::id();

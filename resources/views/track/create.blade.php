@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
 @section('metadata')
-    <title>Añadir un nuevo circuito</title>
-    <meta name="description" content="Añadir un nuevo circuito" />
+    <title>{{ trans('track.Add new track') }}</title>
+    <meta name="description" content="{{ trans('track.Add new track') }}" />
     <meta name="robots" content="noindex, follow" />
 @endsection
 
 @section('breadcrumbs')
     <ol class="breadcrumb">
         <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-            <a itemprop="url" href="{{ route('portada') }}">
+            <a itemprop="url" href="{{ route('home') }}">
                 <span itemprop="title">{{  trans('menu.Home') }}</span>
             </a>
         </li>
@@ -28,6 +28,7 @@
 
 @section('content')
     <h1>{{ trans('track.Add new track') }}</h1>
+    <hr>
 
     <ul class="nav nav-tabs">
         <li role="presentation"><a href="{{ route('tracks') }}">{{ trans('track.List of racing tracks') }}</a></li>
@@ -134,6 +135,13 @@
             <label for="capacity" class="col-md-4 control-label">{{ trans('track.Capacity') }}</label>
             <div class="col-md-8">
                 <input id="capacity" type="text" class="form-control" name="capacity" placeholder="80000" value="{{ old('capacity') }}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="turns" class="col-md-4 control-label">{{ trans('track.Turns') }}</label>
+            <div class="col-md-8">
+                <input id="turns" type="text" class="form-control" name="turns" placeholder="14" value="{{ old('turns') }}">
             </div>
         </div>
 

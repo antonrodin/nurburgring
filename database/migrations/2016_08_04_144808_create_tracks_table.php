@@ -35,6 +35,7 @@ class CreateTracksTable extends Migration
             $table->integer('width');
             $table->integer('slope');
             $table->integer('capacity');
+            $table->integer('turns');
 
             $table->longtext('es_description');
             $table->longtext('en_description');

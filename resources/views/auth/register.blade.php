@@ -15,13 +15,13 @@
 @section('breadcrumbs')
     <ol class="breadcrumb">
         <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-            <a itemprop="url" href="{{ url('portada') }}">
-                <span itemprop="title">Portada</span>
+            <a itemprop="url" href="{{ route('home') }}">
+                <span itemprop="title">{{ trans('menu.Home')) }}</span>
             </a>
         </li>
         <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
             <a itemprop="url" href="{{ url('register') }}">
-                <span itemprop="title">Registro de usuario</span>
+                <span itemprop="title">{{ trans('menu.Sing In') }}</span>
             </a>
         </li>
     </ol>

@@ -20,6 +20,9 @@ return [
     'Spanish' => 'Español',
     'Russian' => 'Русский',
     'Home' => 'Home',
+    'Records' => 'Records',
+    'Information' => 'Information',
+    'Location' => 'Location',
 
     /*
     |--------------------------------------------------------------------------
@@ -44,5 +47,8 @@ return [
     'Country' => 'Country',
     'Address' => 'Address',
     'Track' => 'Track',
-    
+    'Accept' => 'Accept',
+    'Cookies Message' => 'We use cookies to improve your browsing experience <span class="hidden-sm hidden-xs">and help us improve our websites. By continuing to use our website, you agree to our use of such cookies.</span>',
+
+
 ];

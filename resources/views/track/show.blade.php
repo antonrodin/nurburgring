@@ -1,32 +1,32 @@
 @extends('layouts.app')
 
 @section('metadata')
-    <title>{{ $circuit->name }}</title>
-    <meta name="description" content="Descripción del circuito {{ $circuit->name }}, records del autódromo, localización y como llegar a {{ $circuit->name }}, datos de contacto, capacidad... etc" />
+    <title>{{ $track->name }} </title>
+    <meta name="description" content="{{ $track->name }}" />
     <meta name="robots" content="all" />
 
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="{{ $circuit->name }}" />
-    <meta property="og:description" content="Descripción del circuito {{ $circuit->name }}, records del autódromo, localización y como llegar a {{ $circuit->name }}, datos de contacto, capacidad... etc" />
+    <meta property="og:title" content="{{ $track->name }}" />
+    <meta property="og:description" content="{{ $track->name }}" />
     <meta property="og:image" content="{{ asset("img/cn-logo.png") }}" />
 @endsection
 
 @section('breadcrumbs')
     <ol class="breadcrumb">
         <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-            <a itemprop="url" href="{{ route('portada') }}">
-                <span itemprop="title">Portada</span>
+            <a itemprop="url" href="{{ route('home') }}">
+                <span itemprop="title">{{ trans('menu.Home') }}</span>
             </a>
         </li>
         <li>
-            <a itemprop="url" href="{{ url('circuit') }}">
-                <span itemprop="title">Lista de circuitos</span>
+            <a itemprop="url" href="{{ route('tracks') }}">
+                <span itemprop="title">{{ trans('track.List of racing tracks') }}</span>
             </a>
         </li>
         <li>
             <a itemprop="url" href="{{ url()->current() }}">
-                <span itemprop="title">{{ $circuit->name }}</span>
+                <span itemprop="title">{{ $track->name }}</span>
             </a>
         </li>
     </ol>
@@ -36,10 +36,12 @@
     <div class="row">
 
         <div class="col-md-8 col-sm-12">
-            <h1>{{ $circuit->name }}</h1>
+            <h1>{{ $track->name }}</h1>
             <p>
-                {{ strip_tags(str_limit($circuit->description, 150)) }}
+                <?php $description = App::getLocale() . "_description"; ?>
+                {{ strip_tags(str_limit($track->$description, 150)) }}
             </p>
+            <a class="btn btn-sm btn-warning" href="{{ route("track.edit", ['id' => $track->id]) }}"><i class="fa fa-edit"></i> Edit</a>
         </div>
         <div class="col-md-4 col-sm-12">
             <a href="#" class="img-thumbnail">
@@ -49,94 +51,71 @@
     </div>
 
     <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a href="{{ url("circuit/{$circuit->slug}") }}">Información</a></li>
-        <li role="presentation"><a href="{{ url("circuit/{$circuit->slug}/description") }}">Descripción</a></li>
-        <li role="presentation"><a href="">Records</a></li>
+        <li role="presentation" class="active"><a href="{{ url("circuit/{$track->slug}") }}">{{ trans('menu.Information') }}</a></li>
+        <li role="presentation"><a href="{{ url("circuit/{$track->slug}/description") }}">{{ trans('menu.Description') }}</a></li>
+        <li role="presentation"><a href="">{{ trans('menu.Records') }}</a></li>
     </ul>
     <p>&nbsp;</p>
 
     <table class="table table-responsive table-striped">
-        @if($circuit->country)
+        @if($track->country)
             <tr>
-                <td class="text-right"><strong>Pais: </strong></td>
-                <td class="text-left">{{ $circuit->country }}</td>
+                <td class="text-right"><strong>{{ trans('menu.Country') }}: </strong></td>
+                <td class="text-left">{{ $track->country->name }}</td>
             </tr>
         @endif
-        @if($circuit->city)
+        @if($track->city)
              <tr>
-                <td class="text-right"><strong>Ciudad: </strong></td>
-                <td class="text-left">{{ $circuit->city }}</td>
+                <td class="text-right"><strong>{{ trans('menu.City') }}: </strong></td>
+                <td class="text-left">{{ $track->city->name }}</td>
              </tr>
         @endif
-            @if($circuit->address)
+            @if($track->address)
                 <tr>
-                    <td class="text-right"><strong>Dirección: </strong></td>
-                    <td class="text-left">{{ $circuit->address }}</td>
+                    <td class="text-right"><strong>{{ trans('menu.Address') }}: </strong></td>
+                    <td class="text-left">{{ $track->address }}</td>
                 </tr>
             @endif
-            @if($circuit->url)
+            @if($track->url)
                 <tr>
                     <td class="text-right"><strong>Url: </strong></td>
-                    <td class="text-left"><a href="{{ $circuit->url }}" rel="nofollow">{{ $circuit->url }}</a></td>
+                    <td class="text-left"><a href="{{ $track->url }}" rel="nofollow">{{ $track->url }}</a></td>
                 </tr>
             @endif
-            @if($circuit->facebook)
+            @if($track->facebook)
                 <tr>
                     <td class="text-right"><strong>Facebook: </strong></td>
-                    <td class="text-left"><a href="{{ $circuit->facebook }}" rel="nofollow">{{ $circuit->facebook }}</a></td>
+                    <td class="text-left"><a href="{{ $track->facebook }}" rel="nofollow">{{ $track->facebook }}</a></td>
                 </tr>
             @endif
-            @if($circuit->email)
+            @if($track->email)
                 <tr>
-                    <td class="text-right"><strong>Email: </strong></td>
-                    <td class="text-left"><a href="mailto:{{ $circuit->email }}" rel="nofollow">{{ $circuit->email }}</a></td>
+                    <td class="text-right"><strong>{{ trans('menu.Email') }}: </strong></td>
+                    <td class="text-left"><a href="mailto:{{ $track->email }}" rel="nofollow">{{ $track->email }}</a></td>
                 </tr>
             @endif
     </table>
 
-    <h3>Datos técnicos de la trazada y el circuito</h3>
+    <h3>{{ trans('track.Track data') }}: </h3>
+    <hr>
     <table class="table table-responsive table-striped">
-            @if($circuit->length)
-                <tr>
-                    <td class="text-right"><strong>Longitud: </strong></td>
-                    <td class="text-left">{{ $circuit->length }}</td>
-                </tr>
-            @endif
-            @if($circuit->straight)
-                <tr>
-                    <td class="text-right"><strong>Longitud de la recta máxima: </strong></td>
-                    <td class="text-left">{{ $circuit->straight }}</td>
-                </tr>
-            @endif
-            @if($circuit->curves)
-                <tr>
-                    <td class="text-right"><strong>Trazada: </strong></td>
-                    <td class="text-left">{{ $circuit->curves }}</td>
-                </tr>
-            @endif
-            @if($circuit->width)
-                <tr>
-                    <td class="text-right"><strong>Anchura máxima: </strong></td>
-                    <td class="text-left">{{ $circuit->width }}</td>
-                </tr>
-            @endif
-            @if($circuit->slope)
-                <tr>
-                    <td class="text-right"><strong>Desnivel o pendiente máxima: </strong></td>
-                    <td class="text-left">{{ $circuit->slope }}</td>
-                </tr>
-            @endif
-            @if($circuit->capacity)
-                <tr>
-                    <td class="text-right"><strong>Capacidad de las gradas: </strong></td>
-                    <td class="text-left">{{ $circuit->capacity }}</td>
-                </tr>
-            @endif
-            @if($circuit->services)
-                <tr>
-                    <td class="text-right"><strong>Servicios: </strong></td>
-                    <td class="text-left">{{ $circuit->services }}</td>
-                </tr>
-            @endif
+        <tr>
+            <td class="text-right"><strong>{{ trans('track.Length') }}: </strong></td>
+            <td class="text-left">{{ $track->length }}</td>
+            <td class="text-right"><strong>{{ trans('track.Straight') }}: </strong></td>
+            <td class="text-left">{{ $track->straight }}</td>
+        </tr>
+        <tr>
+            <td class="text-right"><strong>{{ trans('track.Turns') }}: </strong></td>
+            <td class="text-left">{{ $track->turns }}</td>
+            <td class="text-right"><strong>{{ trans('track.Width') }}: </strong></td>
+            <td class="text-left">{{ $track->width }}</td>
+        </tr>
+        <tr>
+            <td class="text-right"><strong>{{ trans('track.Slope') }}: </strong></td>
+            <td class="text-left">{{ $track->slope }}</td>
+            <td class="text-right"><strong>{{ trans('track.Capacity') }}: </strong></td>
+            <td class="text-left">{{ $track->capacity }}</td>
+        </tr>
     </table>
 @endsection

@@ -1,6 +1,7 @@
 .img-logo { margin: 20px 0px; }
 .text-small { font-size: 12px; }
-.background-cookies { background-color: #000;}
+.background-cookies { background-color: #000; overflow: hidden; }
+    .background-cookies p { margin: 7px; overflow: hidden; }
 .margin-top-10 { margin-top: 10px; }
 .facebook-like { width: 121px; height: 121px; float: right; }
 

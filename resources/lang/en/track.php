@@ -9,4 +9,6 @@ return [
     'Width' => 'Width (mts)',
     'Slope' => 'Max Slope (%)',
     'Capacity' => 'Seating Capacity',
+    'Turns' => 'Turns',
+    'Track data' => 'Track data',
 ];

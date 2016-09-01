@@ -11,16 +11,18 @@ if (in_array($locale, $languages)) {
 Route::group(array('prefix' => $locale, 'middleware' => ['last', 'locale']), function() {
 
     //Home
-    Route::get('/', ['as' => 'portada', 'uses' => 'HomeController@index']);
+    Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
     Route::get('/contacto', ['as' => 'contacto', 'uses' => 'ContactController@contacto']);
     Route::get('/legal', ['as' => 'legal', 'uses' => 'ContactController@legal']);
     Route::get('/cookies', ['as' => 'cookies', 'uses' => 'ContactController@cookies']);
 
-    //Circuit
+    //Track routes
     Route::get('tracks', ['as' => 'tracks', 'uses' => 'TrackController@index']);
     Route::get('track/create', ['as' => 'track.create', 'uses' => 'TrackController@create']);
     Route::post('track', ['as' =>'track', 'uses' => 'TrackController@store']);
-    Route::get('track/{id}/edit', ['as' => 'track.edit', 'uses' => 'TrackController@edit']);
+    Route::get('track/{track}/edit', ['as' => 'track.edit', 'uses' => 'TrackController@edit']);
+    Route::put('track/{track}', ['as' => 'track.update', 'uses' => 'TrackController@update']);
+    Route::get('track/{slug}', ['as'=>'track.show', 'uses' => 'TrackController@show']);
 
 });
 
