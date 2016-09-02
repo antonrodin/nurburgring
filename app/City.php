@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class City extends Model
 {
 
-    protected $fillable = ['country_id', 'name'];
+    protected $fillable = ['country_id', 'en_name', 'es_name', 'ru_name'];
 
 
     public function tracks()

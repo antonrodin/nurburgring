@@ -19,6 +19,7 @@ class TrackController extends Controller
 
     public function __construct(Track $track)
     {
+        $this->_data['locale'] = App::getLocale();
         $this->middleware('auth', ['except' => ['index', 'show']]);
         $this->_track = $track;
     }
@@ -31,7 +32,6 @@ class TrackController extends Controller
     public function index()
     {
         $this->_data['tracks'] = $this->_track->all();
-
         return view('track.index', $this->_data);
     }
 
@@ -55,6 +55,8 @@ class TrackController extends Controller
     public function store(Request $request)
     {
 
+        $locale = App::getLocale();
+
         $this->validate($request, [
             'name'      => 'required|min:5|max:255',
             'address'   => 'required|min:5|max:255',
@@ -73,19 +75,18 @@ class TrackController extends Controller
         ]);
 
         //Add new City
-        $city = City::where('name', $request->city)->where('country_id', $request->country_id)->first();
+        $city = City::where("{$locale}_name", $request->city)->where('country_id', $request->country_id)->first();
         if (!$city) {
             $city = City::create([
-                'name' => $request->city,
+                "{$locale}_name" => $request->city,
                 'country_id' => $request->country_id
             ]);
         }
 
         //Add new racing track
-        $locale = App::getLocale();
         $this->_track->create([
             'user_id' => Auth::id(),
-            'name' => $request->name,
+            "{$locale}_name" => $request->name,
             'slug' => str_slug($request->name),
             'city_id' => $city->id,
             'country_id' => $request->country_id,

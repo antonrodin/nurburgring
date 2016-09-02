@@ -16,6 +16,12 @@ Route::group(array('prefix' => $locale, 'middleware' => ['last', 'locale']), fun
     Route::get('/legal', ['as' => 'legal', 'uses' => 'ContactController@legal']);
     Route::get('/cookies', ['as' => 'cookies', 'uses' => 'ContactController@cookies']);
 
+    //Record routes
+    Route::get('records', ['as' => 'records', 'uses' => 'RecordController@index']);
+    Route::get('record/create', ['as' => 'record.create', 'uses' => 'RecordController@create']);
+    Route::get('record/{record}/edit', ['as' => 'record.edit', 'uses' => 'RecordController@edit']);
+    Route::get('record/{slug}', ['as'=>'record.show', 'uses' => 'RecordController@show']);
+
     //Track routes
     Route::get('tracks', ['as' => 'tracks', 'uses' => 'TrackController@index']);
     Route::get('track/create', ['as' => 'track.create', 'uses' => 'TrackController@create']);
@@ -23,6 +29,18 @@ Route::group(array('prefix' => $locale, 'middleware' => ['last', 'locale']), fun
     Route::get('track/{track}/edit', ['as' => 'track.edit', 'uses' => 'TrackController@edit']);
     Route::put('track/{track}', ['as' => 'track.update', 'uses' => 'TrackController@update']);
     Route::get('track/{slug}', ['as'=>'track.show', 'uses' => 'TrackController@show']);
+
+    //Driver routes
+    Route::get('drivers', ['as' => 'drivers', 'uses' => 'DriverController@index']);
+    Route::get('driver/create', ['as' => 'driver.create', 'uses' => 'DriverController@create']);
+    Route::get('driver/{driver}/edit', ['as' => 'driver.edit', 'uses' => 'DriverController@edit']);
+    Route::get('driver/{slug}', ['as'=>'driver.show', 'uses' => 'DriverController@show']);
+
+    //Car routes
+    Route::get('cars', ['as' => 'cars', 'uses' => 'CarController@index']);
+    Route::get('car/create', ['as' => 'car.create', 'uses' => 'CarController@create']);
+    Route::get('car/{car}/edit', ['as' => 'car.edit', 'uses' => 'CarController@edit']);
+    Route::get('car/{slug}', ['as'=>'car.show', 'uses' => 'CarController@show']);
 
 });
 
@@ -56,3 +74,4 @@ Route::get('cscript', 'ScriptController@cscript');
 Route::get('dscript', 'ScriptController@dscript');
 Route::get('carscript', 'ScriptController@carscript');
 Route::get('recordscript', 'ScriptController@recordscript');
+Route::get('fix', 'ScriptController@fix');

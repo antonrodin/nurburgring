@@ -17,7 +17,7 @@ class CreateRecordsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
             $table->integer('driver_id')->unsigned()->index();
-            $table->integer('circuit_id')->unsigned()->index();
+            $table->integer('track_id')->unsigned()->index();
             $table->integer('car_id')->unsigned()->index();
             $table->string('slug')->unique();
             $table->date('record_date');
@@ -25,7 +25,11 @@ class CreateRecordsTable extends Migration
             $table->integer('min')->unsigned();
             $table->integer('seg')->unsigned();
             $table->integer('miliseg')->unsigned();
-            $table->longtext('description');
+
+            $table->longtext('en_description');
+            $table->longtext('es_description');
+            $table->longtext('ru_description');
+
             $table->string('youtube');
             $table->string('url');
             $table->timestamps();

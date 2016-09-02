@@ -21,7 +21,9 @@ class CreateTracksTable extends Migration
             $table->integer('city_id')->unsigned()->index();
             
             $table->string('slug')->unique();
-            $table->string('name');
+            $table->string('en_name');
+            $table->string('ru_name');
+            $table->string('es_name');
             $table->string('address');
 
             $table->string('url');

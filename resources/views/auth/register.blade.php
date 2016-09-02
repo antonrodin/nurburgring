@@ -16,12 +16,12 @@
     <ol class="breadcrumb">
         <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
             <a itemprop="url" href="{{ route('home') }}">
-                <span itemprop="title">{{ trans('menu.Home')) }}</span>
+                <span itemprop="title">{{ trans('menu.Home') }}</span>
             </a>
         </li>
         <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
             <a itemprop="url" href="{{ url('register') }}">
-                <span itemprop="title">{{ trans('menu.Sing In') }}</span>
+                <span itemprop="title">{{ trans('menu.Sign In') }}</span>
             </a>
         </li>
     </ol>
@@ -29,13 +29,13 @@
 
 @section('content')
             <div class="panel panel-default">
-                <div class="panel-heading">Registro de un nuesvo usuario</div>
+                <div class="panel-heading">{{ trans('menu.Sign In') }}</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Apodo</label>
+                            <label for="name" class="col-md-4 control-label">{{ trans('menu.Name') }}</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
@@ -49,7 +49,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">Correo electrónico</label>
+                            <label for="email" class="col-md-4 control-label">{{ trans('menu.Email') }}</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
@@ -63,7 +63,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Contraseña</label>
+                            <label for="password" class="col-md-4 control-label">{{ trans('menu.Password') }}</label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control" name="password">
@@ -77,7 +77,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirmar contraseña</label>
+                            <label for="password-confirm" class="col-md-4 control-label">{{ trans('menu.Repeat password') }}</label>
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
@@ -93,7 +93,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-user"></i> Registrarse
+                                    <i class="fa fa-btn fa-user"></i> {{ trans('menu.Sign In') }}
                                 </button>
                             </div>
                         </div>

@@ -7,15 +7,45 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Record;
 use App\Tiempo;
-use App\Circuit;
+use App\Track;
 use App\Driver;
 use App\Car;
 use App\Image;
+use App\City;
 use DB;
 use DateTime;
 
 class ScriptController extends Controller
 {
+
+    public function fix()
+    {
+        $tiempos = Tiempo::all();
+        foreach($tiempos as $tiempo) {
+            if ($tiempo->clasificacion == "berlina") {
+                $tiempo->clasificacion = "Sedan";
+            }
+            if ($tiempo->clasificacion == "compacto") {
+                $tiempo->clasificacion = "Compact car";
+            }
+            if ($tiempo->clasificacion == "utilitario") {
+                $tiempo->clasificacion = "Subcompact car";
+            }
+            if ($tiempo->clasificacion == "competicion") {
+                $tiempo->clasificacion = "Competition";
+            }
+            if ($tiempo->clasificacion == "deportivo") {
+                $tiempo->clasificacion = "Sport car";
+            }
+            if ($tiempo->clasificacion == "monovolumen") {
+                $tiempo->clasificacion = "Minivan";
+            }
+            if ($tiempo->clasificacion == "4x4") {
+                $tiempo->clasificacion = "4x4";
+            }
+            $tiempo->save();
+        }
+    }
 
     //Script temporal para añadir circuitos de la antigua base de datos
     public function cscript() {
@@ -25,6 +55,13 @@ class ScriptController extends Controller
             ->groupBy('circuito')
             ->get();
 
+        $city = City::create([
+            'country_id' => 80,
+            'en_name' => 'Berlin',
+            'es_name' => 'Berlin',
+            'ru_name' => 'Berlin',
+        ]);
+
         foreach($tiempos as $tiempo) {
 
             $image = Image::create([
@@ -33,10 +70,14 @@ class ScriptController extends Controller
                 'caption' => ''
             ]);
 
-            Circuit::create([
+            Track::create([
                 'user_id' => 1,
+                'country_id' => 80,
+                'city_id' => $city->id,
                 'image_id' => $image->id,
-                'name' => $tiempo->circuito,
+                'en_name' => $tiempo->circuito,
+                'es_name' => $tiempo->circuito,
+                'ru_name' => $tiempo->circuito,
                 'slug' => str_slug($tiempo->circuito, '-')
             ]);
 
@@ -56,14 +97,15 @@ class ScriptController extends Controller
 
             $image = Image::create([
                 'user_id' => 1,
-                'file' => 'default.png',
-                'caption' => ''
+                'file' => 'default.png'
             ]);
 
             Driver::create([
                 'user_id' => 1,
                 'image_id' => $image->id,
-                'name' => $tiempo->piloto,
+                'en_name' => $tiempo->piloto,
+                'es_name' => $tiempo->piloto,
+                'ru_name' => $tiempo->piloto,
                 'slug' => str_slug($tiempo->piloto, '-')
             ]);
 
@@ -71,7 +113,7 @@ class ScriptController extends Controller
 
     }
 
-    //Script para añadir los vehículos a la base de daros
+    //Script para añadir los vehículos a la base de datos
     public function carscript() {
 
         $tiempos = Tiempo::all();
@@ -86,13 +128,13 @@ class ScriptController extends Controller
                 $image = Image::create([
                     'user_id' => 1,
                     'file' => $old_image->file,
-                    'caption' => ''
+                    'en_caption' => ''
                 ]);
             } else {
                 $image = Image::create([
                     'user_id' => 1,
                     'file' => "default.png",
-                    'caption' => ''
+                    'en_caption' => ''
                 ]);
             }
 
@@ -105,7 +147,8 @@ class ScriptController extends Controller
                     'image_id' => $image->id,
                     'brand' => $tiempo->marca,
                     'model' => $tiempo->coche,
-                    'slug' => $slug
+                    'slug' => $slug,
+                    'type' => $tiempo->clasificacion
                 ]);
             }
 
@@ -126,22 +169,18 @@ class ScriptController extends Controller
             $driver_slug = str_slug("{$tiempo->piloto}", '-');
             $driver = Driver::where('slug', $driver_slug)->first();
 
-            //Find Circuit
-            $circuit_slug = str_slug("{$tiempo->circuito}", '-');
-            $circuit = Circuit::where('slug', $circuit_slug)->first();
-
             Record::create([
-                'slug' => "{$tiempo->total}-{$circuit_slug}-{$car_slug}",
+                'slug' => "{$tiempo->total}-nurburgring-nordschleife-{$car_slug}",
                 'user_id' => 1,
                 'car_id' => $car->id,
                 'driver_id' => $driver->id,
-                'circuit_id' => $circuit->id,
+                'track_id' => 1,
                 'record_date' => "{$tiempo->anio}-01-01",
                 'total' => $tiempo->total,
                 'min' => $tiempo->minutos,
                 'seg' => $tiempo->segundos,
                 'miliseg' => $tiempo->milisegundos,
-                'description' => $tiempo->descripcion,
+                'es_description' => $tiempo->descripcion,
                 'youtube' => $tiempo->youtube,
             ]);
 

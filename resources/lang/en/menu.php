@@ -4,6 +4,17 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Page title & description
+    |--------------------------------------------------------------------------
+    |
+    | The following language lines are used for page title, description and SEO
+    |
+    */
+    'Page title' => 'Flying Laps',
+    'Page description' => 'Website about racing tracks and best lap times. Nürburgring race track, Tsukuba, Top Gear circuit and more...',
+
+    /*
+    |--------------------------------------------------------------------------
     | Menu items
     |--------------------------------------------------------------------------
     |
@@ -12,6 +23,8 @@ return [
     */
 
     'Tracks' => 'Tracks',
+    'Drivers' => 'Drivers',
+    'Cars' => 'Cars',
     'Login' => 'Login',
     'Sign In' => 'Sign In',
     'Sign Out' => 'Sign Out',
@@ -42,6 +55,8 @@ return [
     'Recommended fields' => 'Recommended fields:',
     'Email' => 'Email',
     'Name' => 'Name',
+    'Password' => 'Password',
+    'Repeat password' => 'Repeat password',
     'Description' => 'Description',
     'City' => 'City',
     'Country' => 'Country',

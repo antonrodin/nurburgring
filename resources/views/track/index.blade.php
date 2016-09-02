@@ -37,6 +37,7 @@
     <p>&nbsp;</p>
     <table class="table table-responsive table-striped">
         @foreach($tracks as $track)
+            <?php $name_field = "{$locale}_name"; ?>
             <tr>
                 <td>
                     <a href="{{ route('track.show', ['slug' => $track->slug]) }}" class="img-thumbnail" href="#">
@@ -44,9 +45,9 @@
                     </a>
                 </td>
                 <td>
-                    <a href="{{ route('track.show', ['slug' => $track->slug]) }}"><h2>{{ $track->name }}</h2></a>
+                    <a href="{{ route('track.show', ['slug' => $track->slug]) }}"><h2>{{ $track->$name_field }}</h2></a>
                     <p>
-                        {{ $track->city->name }} (<strong>{{ $track->country->name }})</strong>,
+                        {{ $track->city->$name_field }} (<strong>{{ $track->country->$name_field }})</strong>,
                         {{ $track->address }}<br>
                         {{ trans('track.Length') }}: <strong>{{ $track->length }}</strong>
                     </p>

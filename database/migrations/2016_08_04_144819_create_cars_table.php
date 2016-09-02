@@ -20,7 +20,10 @@ class CreateCarsTable extends Migration
             $table->string('slug')->unique();
             $table->string('brand');
             $table->string('model');
-            $table->longtext('description');
+
+            $table->longtext('en_description');
+            $table->longtext('es_description');
+            $table->longtext('ru_description');
 
             //Car Specs
             $table->string('type');

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\App;
 use App\Http\Requests;
 use App\Record;
 
@@ -11,16 +11,16 @@ class RecordController extends Controller
 {
 
     private $_data = array();
-    protected $_record;
 
-    public function __construct(Record $record)
+    public function __construct()
     {
-        $this->_record = $record;
+        $this->_data['locale'] = App::getLocale();
+        $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
     public function index()
     {
-        $this->_data['records'] = $this->_record->orderBy('total', 'desc')->paginate(50);
+        $this->_data['records'] = Record::orderBy('total', 'desc')->paginate(20);
         return view('record.index', $this->_data);
     }
 

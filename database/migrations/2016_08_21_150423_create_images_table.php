@@ -17,7 +17,11 @@ class CreateImagesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
             $table->string('file')->default('default.png');
-            $table->string('caption');
+
+            $table->string('en_caption');
+            $table->string('es_caption');
+            $table->string('ru_caption');
+
             $table->timestamps();
 
             //Claves foraneas

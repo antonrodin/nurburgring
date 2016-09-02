@@ -3,11 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\App;
 use App\Http\Requests;
+use App\Car;
 
 class CarController extends Controller
 {
+
+    private $_data = array();
+
+    public function __construct()
+    {
+        $this->_data['locale'] = App::getLocale();
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +25,8 @@ class CarController extends Controller
      */
     public function index()
     {
-        //
+        $this->_data['cars'] = Car::all();
+        return view('car.index', $this->_data);
     }
 
     /**

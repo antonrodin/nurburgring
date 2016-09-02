@@ -1,14 +1,17 @@
 @extends('layouts.app')
 
+<?php $name_field = "{$locale}_name"; ?>
+<?php $desc_field = "{$locale}_description"; ?>
+
 @section('metadata')
-    <title>{{ $track->name }} </title>
-    <meta name="description" content="{{ $track->name }}" />
+    <title>{{ $track->$name_field }} </title>
+    <meta name="description" content="{{ $track->$name_field }}" />
     <meta name="robots" content="all" />
 
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="{{ $track->name }}" />
-    <meta property="og:description" content="{{ $track->name }}" />
+    <meta property="og:title" content="{{ $track->$name_field }}" />
+    <meta property="og:description" content="{{ $track->$name_field }}" />
     <meta property="og:image" content="{{ asset("img/cn-logo.png") }}" />
 @endsection
 
@@ -26,7 +29,7 @@
         </li>
         <li>
             <a itemprop="url" href="{{ url()->current() }}">
-                <span itemprop="title">{{ $track->name }}</span>
+                <span itemprop="title">{{ $track->$name_field }}</span>
             </a>
         </li>
     </ol>
@@ -36,10 +39,10 @@
     <div class="row">
 
         <div class="col-md-8 col-sm-12">
-            <h1>{{ $track->name }}</h1>
+            <h1>{{ $track->$name_field }}</h1>
             <p>
                 <?php $description = App::getLocale() . "_description"; ?>
-                {{ strip_tags(str_limit($track->$description, 150)) }}
+                {{ strip_tags(str_limit($track->$desc_field, 150)) }}
             </p>
             <a class="btn btn-sm btn-warning" href="{{ route("track.edit", ['id' => $track->id]) }}"><i class="fa fa-edit"></i> Edit</a>
         </div>
@@ -52,8 +55,8 @@
 
     <ul class="nav nav-tabs">
         <li role="presentation" class="active"><a href="{{ url("circuit/{$track->slug}") }}">{{ trans('menu.Information') }}</a></li>
-        <li role="presentation"><a href="{{ url("circuit/{$track->slug}/description") }}">{{ trans('menu.Description') }}</a></li>
-        <li role="presentation"><a href="">{{ trans('menu.Records') }}</a></li>
+        <li role="presentation"><a href="#") }}">{{ trans('menu.Description') }}</a></li>
+        <li role="presentation"><a href="#">{{ trans('menu.Records') }}</a></li>
     </ul>
     <p>&nbsp;</p>
 
@@ -61,13 +64,13 @@
         @if($track->country)
             <tr>
                 <td class="text-right"><strong>{{ trans('menu.Country') }}: </strong></td>
-                <td class="text-left">{{ $track->country->name }}</td>
+                <td class="text-left">{{ $track->country->$name_field }}</td>
             </tr>
         @endif
         @if($track->city)
              <tr>
                 <td class="text-right"><strong>{{ trans('menu.City') }}: </strong></td>
-                <td class="text-left">{{ $track->city->name }}</td>
+                <td class="text-left">{{ $track->city->$name_field }}</td>
              </tr>
         @endif
             @if($track->address)

@@ -3,11 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\App;
 use App\Http\Requests;
+use App\Driver;
 
 class DriverController extends Controller
 {
+
+    private $_data = array();
+
+    public function __construct()
+    {
+        $this->_data['locale'] = App::getLocale();
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +25,8 @@ class DriverController extends Controller
      */
     public function index()
     {
-        //
+        $this->_data['drivers'] = Driver::all();
+        return view("driver.index", $this->_data);
     }
 
     /**

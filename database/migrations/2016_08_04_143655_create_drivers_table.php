@@ -17,8 +17,12 @@ class CreateDriversTable extends Migration
             $table->integer('user_id')->unsigned()->index();
             $table->integer('image_id')->unsigned()->index();
             $table->string('slug')->unique();
-            $table->string('name');
-            $table->longtext('description');
+            $table->string('en_name');
+            $table->string('es_name');
+            $table->string('ru_name');
+            $table->longtext('en_description');
+            $table->longtext('ru_description');
+            $table->longtext('es_description');
             $table->timestamps();
         });
     }
