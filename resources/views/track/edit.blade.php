@@ -1,8 +1,12 @@
 @extends('layouts.app')
 
+<?php
+        $field_name = "{$locale}_name";
+?>
+
 @section('metadata')
-    <title>{{ trans('menu.Update') }} {{ $track->name }}</title>
-    <meta name="description" content="{{ trans('menu.Update') }} {{ $track->name }}" />
+    <title>{{ trans('menu.Update') }} {{ $track->$field_name }}</title>
+    <meta name="description" content="{{ trans('menu.Update') }} {{ $track->$field_name }}" />
     <meta name="robots" content="noindex, nofollow" />
 @endsection
 
@@ -21,7 +25,7 @@
 
         <li>
             <a itemprop="url" href="{{ route('track.show', ['slug' => $track->slug]) }}">
-                <span itemprop="title">{{ $track->name }}</span>
+                <span itemprop="title">{{ $track->$field_name }}</span>
             </a>
         </li>
         <li>
@@ -33,7 +37,7 @@
 @endsection
 
 @section('content')
-    <h2>{{ trans('menu.Edit') }} {{ $track->name }}</h2>
+    <h2>{{ trans('menu.Edit') }} {{ $track->$field_name }}</h2>
     <hr>
 
     <form role="form" class="form-horizontal" action="{{ route("track.update", ['track' => $track->id]) }}" method="POST">
@@ -44,7 +48,7 @@
         <div class="form-group">
             <label for="name" class="col-md-4 control-label">{{ trans('menu.Name') }}</label>
             <div class="col-md-8">
-                <input id="name" type="text" class="form-control" name="name" placeholder="Tsukuba" value="{{ old('name', $track->name) }}">
+                <input id="name" type="text" class="form-control" name="name" placeholder="Tsukuba" value="{{ old('name', $track->$field_name) }}">
             </div>
         </div>
 
@@ -54,9 +58,9 @@
                 <select id="country_id" type="text" class="form-control" name="country_id">
                     @foreach($countries as $country)
                         @if($country->id == $track->country_id)
-                            <option selected value="{{ $country->id }}">{{ $country->name }}</option>
+                            <option selected value="{{ $country->id }}">{{ $country->$field_name }}</option>
                         @else
-                            <option value="{{ $country->id }}">{{ $country->name }}</option>
+                            <option value="{{ $country->id }}">{{ $country->$field_name }}</option>
                         @endif
                     @endforeach
                 </select>
@@ -66,7 +70,7 @@
         <div class="form-group">
             <label for="city" class="col-md-4 control-label">{{ trans('menu.City') }}</label>
             <div class="col-md-8">
-                <input id="city" type="text" class="form-control" name="city" placeholder="Madrid" value="{{ old('city', $track->city->name) }}">
+                <input id="city" type="text" class="form-control" name="city" placeholder="Madrid" value="{{ old('city', $track->city->en_name) }}">
             </div>
         </div>
 

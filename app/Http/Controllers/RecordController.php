@@ -23,6 +23,7 @@ class RecordController extends Controller
         $this->_data['records'] = Record::orderBy('total', 'desc')->paginate(20);
         return view('record.index', $this->_data);
     }
+    
 
     /**
      * Show the form for creating a new resource.

@@ -14,14 +14,12 @@ use Auth;
 class TrackController extends Controller
 {
 
-    protected $_track;
     private $_data = array();
 
-    public function __construct(Track $track)
+    public function __construct()
     {
         $this->_data['locale'] = App::getLocale();
         $this->middleware('auth', ['except' => ['index', 'show']]);
-        $this->_track = $track;
     }
 
     /**
@@ -31,8 +29,16 @@ class TrackController extends Controller
      */
     public function index()
     {
-        $this->_data['tracks'] = $this->_track->all();
+        $this->_data['tracks'] = Track::all();
         return view('track.index', $this->_data);
+    }
+
+    public function records($slug)
+    {
+        $track = Track::where('slug', $slug)->first();
+        $this->_data['track'] = $track;
+        $this->_data['records'] = $track->records;
+        return view('track.records', $this->_data);
     }
 
     /**
@@ -78,15 +84,19 @@ class TrackController extends Controller
         $city = City::where("{$locale}_name", $request->city)->where('country_id', $request->country_id)->first();
         if (!$city) {
             $city = City::create([
-                "{$locale}_name" => $request->city,
+                "en_name" => $request->city,
+                "es_name" => $request->city,
+                "ru_name" => $request->city,
                 'country_id' => $request->country_id
             ]);
         }
 
         //Add new racing track
-        $this->_track->create([
+        Track::create([
             'user_id' => Auth::id(),
-            "{$locale}_name" => $request->name,
+            "en_name" => $request->name,
+            "es_name" => $request->name,
+            "ru_name" => $request->name,
             'slug' => str_slug($request->name),
             'city_id' => $city->id,
             'country_id' => $request->country_id,
@@ -113,14 +123,14 @@ class TrackController extends Controller
      */
     public function show($slug)
     {
-        $this->_data['track'] = $this->_track->where('slug', $slug)->first();
+        $this->_data['track'] = Track::where('slug', $slug)->first();
         return view('track.show', $this->_data);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Track  $track
      * @return \Illuminate\Http\Response
      */
     public function edit(Track $track)

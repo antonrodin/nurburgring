@@ -28,6 +28,7 @@ Route::group(array('prefix' => $locale, 'middleware' => ['last', 'locale']), fun
     Route::post('track', ['as' =>'track', 'uses' => 'TrackController@store']);
     Route::get('track/{track}/edit', ['as' => 'track.edit', 'uses' => 'TrackController@edit']);
     Route::put('track/{track}', ['as' => 'track.update', 'uses' => 'TrackController@update']);
+    Route::get('track/{slug}/records', ['as' => 'track.records', 'uses' => 'TrackController@records']);
     Route::get('track/{slug}', ['as'=>'track.show', 'uses' => 'TrackController@show']);
 
     //Driver routes

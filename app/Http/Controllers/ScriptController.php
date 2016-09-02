@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Record;
 use App\Tiempo;
@@ -14,36 +13,18 @@ use App\Image;
 use App\City;
 use DB;
 use DateTime;
+use App\Country;
 
 class ScriptController extends Controller
 {
 
     public function fix()
     {
-        $tiempos = Tiempo::all();
-        foreach($tiempos as $tiempo) {
-            if ($tiempo->clasificacion == "berlina") {
-                $tiempo->clasificacion = "Sedan";
-            }
-            if ($tiempo->clasificacion == "compacto") {
-                $tiempo->clasificacion = "Compact car";
-            }
-            if ($tiempo->clasificacion == "utilitario") {
-                $tiempo->clasificacion = "Subcompact car";
-            }
-            if ($tiempo->clasificacion == "competicion") {
-                $tiempo->clasificacion = "Competition";
-            }
-            if ($tiempo->clasificacion == "deportivo") {
-                $tiempo->clasificacion = "Sport car";
-            }
-            if ($tiempo->clasificacion == "monovolumen") {
-                $tiempo->clasificacion = "Minivan";
-            }
-            if ($tiempo->clasificacion == "4x4") {
-                $tiempo->clasificacion = "4x4";
-            }
-            $tiempo->save();
+        $countries = Country::all();
+        foreach ($countries as $country) {
+            $country->es_name = $country->en_name;
+            $country->ru_name = $country->en_name;
+            $country->save();
         }
     }
 

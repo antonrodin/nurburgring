@@ -54,7 +54,7 @@
                     <p>
                         {{ strip_tags(str_limit($track->description, 150)) }}
                     </p>
-                    <a class="btn btn-sm btn-default" href="#"><i class="fa fa-tag"></i> Lista de Records</a>
+                    <a class="btn btn-sm btn-default" href="{{ route("track.records", ['slug' => $track->slug]) }}"><i class="fa fa-tag"></i> {{ trans('menu.Records') }}</a>
                     <a class="btn btn-sm btn-warning" href="{{ route("track.edit", ['id' => $track->id]) }}"><i class="fa fa-edit"></i> Edit</a>
                 </td>
             </tr>

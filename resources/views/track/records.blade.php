@@ -1,8 +1,12 @@
 @extends('layouts.app')
 
+<?php
+    $name_field = "{$locale}_name";
+?>
+
 @section('metadata')
-    <title>{{ trans('record.New lap times') }}</title>
-    <meta name="description" content="{{ trans('record.New lap times') }}" />
+    <title>{{ trans('record.Tiempos de Nürburgring, los mejores records. Coche  en Infierno Verde') }}</title>
+    <meta name="description" content="{{ trans('record.Los mejores tiempos de Nürburgring de superdeportivos, compactos, berlinas. Records de coches Volkswagen, Porsche, Ferrari, Nissan, Opel, Renault. Coches en Infierno Verde') }}" />
     <meta name="robots" content="all" />
 
     <meta property="og:url" content="{{ url()->current() }}" />
@@ -20,16 +24,20 @@
             </a>
         </li>
         <li>
+            <a itemprop="url" href="{{ route('track.show', ['slug' => $track->slug]) }}">
+                <span itemprop="title">{{ $track->$name_field }}</span>
+            </a>
+        </li>
+        <li>
             <a itemprop="url" href="{{ url()->current() }}">
-                <span itemprop="title">{{ trans('record.New lap times') }}</span>
+                <span itemprop="title">{{ trans('menu.Records') }}</span>
             </a>
         </li>
     </ol>
 @endsection
 
 @section('content')
-    <?php $desc_field = "{$locale}_description"; ?>
-    <h1>{{ trans('record.New fastest laps') }}</h1>
+    <h1>{{ trans('record.Todos los tiempos de Nürburgring') }}</h1>
 
     <ul class="nav nav-tabs">
         <li role="presentation" class="active"><a href="{{ route("records") }}">{{ trans('menu.List') }}</a></li>
@@ -51,6 +59,4 @@
             </tr>
         @endforeach
     </table>
-
-    {{ $records->links() }}
 @endsection

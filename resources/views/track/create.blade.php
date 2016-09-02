@@ -52,7 +52,7 @@
             <div class="col-md-8">
                 <select id="country_id" type="text" class="form-control" name="country_id">
                     @foreach($countries as $country)
-                        <option value="{{ $country->id }}">{{ $country->name }}</option>
+                        <option value="{{ $country->id }}">{{ $country->en_name }}</option>
                     @endforeach
                 </select>
             </div>
